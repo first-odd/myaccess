@@ -1,1 +1,9 @@
-hello
+//This is my first try to learn how to use git & GitHub.
+//I plan to trail my every code by this way.
+//Nothing but I am interesting in programming.
+
+include <stdafx.h>
+void main()
+{
+    printf("hello world!");
+}
