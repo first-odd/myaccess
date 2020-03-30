@@ -3,7 +3,8 @@
 //Nothing but I am interesting in programming.
 
 include <stdafx.h>
-void main()
+int main()
 {
     printf("hello world!");
+    return 0;
 }
