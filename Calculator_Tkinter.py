@@ -18,6 +18,7 @@ class MY_GUI():
         self.init_window_name.title("Calculator")           #窗口名
         #self.init_window_name.geometry('320x160+10+10')                         #290 160为窗口大小，+10 +10 定义窗口弹出时的默认展示位置
         self.init_window_name.geometry('310x480+1200+20')
+        self.init_window_name.resizable(0,0)
         #self.init_window_name["bg"] = "pink"                                    #窗口背景色，其他背景色见：blog.csdn.net/chl0000/article/details/7657887
         #self.init_window_name.attributes("-alpha",0.9)                          #虚化，值越小虚化程度越高
         #标签
