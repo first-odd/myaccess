@@ -1,18 +1,18 @@
 import numpy as np    #练习使用numpy库
 import time
 
-from numpy.random.mtrand import random
+from numpy.core.fromnumeric import size
 
-def compare(self):
+def compare():
     t1 = time.time()
     a = []
-    for x in range(10):   #[0,10) = [0,9]
+    for x in range(1000000):   #[0,10) = [0,9]
         a.append(x**2)    #在末尾添加元素
     t2 = time.time()
     print(t2-t1)
 
     t3 = time.time()
-    b = np.arange(10)**2  # np.arange和range类似用法
+    b = np.arange(1000000)**2  # np.arange和range类似用法
     t4 = time.time()
     print(t4-t3)          # 可以看出 使用numpy库，比纯python代码快很多'''
 
@@ -64,6 +64,28 @@ def arry():
     itemsize获取数组中，单个元素所占字节大小
     reshape函数可以改变np数组的形状，保持数字数量不变 eg：A1.reshape((2,2))  
     flatten函数可以直接吧np数组变为一维数组'''
-    
 
-arry()
+def array_cal():
+    '''
+    数组和数字可以直接运算
+    数组的shape相同，可以直接运算
+    shape不同的数组运算，需要满足 广播原则:两个shape.维度从后往前数，相同或有一个是1，称为广播相融，
+    shape。size=(3,8,2)和size=(8,3)不能运算，2和3不想等，且都不是1
+    size=(3,8,2)可以和size=(8,1)运算,但是不能和size=(3,1)运算
+    但是size=(3,8,1)可以和size=(1,8)运算,得到8行8列
+    总结：行和列一定都要够，如果不够，只能为1
+    '''
+    a = np.arange(10)
+    a = a*2 #所有元素*2
+    print(a)
+    b = np.arange(20)
+    b.resize(4,5)           
+    '''resize可以改变数组 b 的形状，b.resize(4,5) 相当于 b=np.arange(20).shape(4,5) 也相当于 b=b.reshape(4,5)'''
+    c = np.random.randint(1,5,size=(4,5))
+    d = np.eye(4,5)
+    e = b+c*d
+    f = np.random.randint(1,5,size=(3,8,8))
+    g = np.random.randint(2,6,size=(8,1))
+    print(c,'\n',"="*30,'\n',d,'\n',"="*30,'\n',e,'\n',"="*30,'\n',f+g,'\n',"="*30,'\n',b)
+    '''flatten 和 ravel  都可以把数组转为一维，都不会改变原数组的形状，ravel可以直接修改原数组本身数据，flatten是副本，不能修改'''
+array_cal()
