@@ -96,3 +96,7 @@ def vstack_array():
     '''
     c = np.random.randint(1,5,size=(4,5))
     d = np.random.randint(1,6,size=(2,5))
+    e = np.vstack([c,d])
+    print(e)
+    
+vstack_array()
