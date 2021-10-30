@@ -96,7 +96,10 @@ def vstack_array():
     '''
     c = np.random.randint(1,5,size=(4,5))
     d = np.random.randint(1,6,size=(2,5))
-    e = np.vstack([c,d])
+    e = np.vstack([c,d])    #vstack 在垂直方向拼接，要求列相等
     print(e)
-    
+    c = np.random.randint(1,5,size=(4,5))
+    d = np.random.randint(1,5,size=(4,2))
+    e = np.hstack([c,d])    #hstack 在水平方向拼接，要求行相等
+    print(e)
 vstack_array()
