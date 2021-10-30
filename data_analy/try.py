@@ -88,4 +88,11 @@ def array_cal():
     g = np.random.randint(2,6,size=(8,1))
     print(c,'\n',"="*30,'\n',d,'\n',"="*30,'\n',e,'\n',"="*30,'\n',f+g,'\n',"="*30,'\n',b)
     '''flatten 和 ravel  都可以把数组转为一维，都不会改变原数组的形状，ravel可以直接修改原数组本身数据，flatten是副本，不能修改'''
-array_cal()
+
+#数组的叠加
+def vstack_array():
+    '''
+    行相等才能垂直方向拼接，列相等才能水平方向拼接
+    '''
+    c = np.random.randint(1,5,size=(4,5))
+    d = np.random.randint(1,6,size=(2,5))
