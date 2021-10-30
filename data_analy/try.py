@@ -89,17 +89,47 @@ def array_cal():
     print(c,'\n',"="*30,'\n',d,'\n',"="*30,'\n',e,'\n',"="*30,'\n',f+g,'\n',"="*30,'\n',b)
     '''flatten 和 ravel  都可以把数组转为一维，都不会改变原数组的形状，ravel可以直接修改原数组本身数据，flatten是副本，不能修改'''
 
-#数组的叠加
+#数组的叠加、切割
 def vstack_array():
     '''
     行相等才能垂直方向拼接，列相等才能水平方向拼接
     '''
     c = np.random.randint(1,5,size=(4,5))
     d = np.random.randint(1,6,size=(2,5))
-    e = np.vstack([c,d])    #vstack 在垂直方向拼接，要求列相等
+    e = np.vstack([c,d])    #vstack 在上下方向拼接，要求列相等   
+    d = np.vsplit(e,2)      #vsplit 横切  2:平均分成两份，要保证能均分，不然报错
+    f = np.vsplit(e,(1,2))  # e目前共有6行，从1行前、2行前切一刀,剩下4行不切
+    print(e)
+    print('='*40)
+    print(f)
+    print('='*40)
+    print(d[0])
+    print('='*40)
+    print(d[1])
+    print('='*40)
+    c = np.random.randint(1,5,size=(4,5))
+    d = np.random.randint(1,5,size=(4,3))
+    e = np.hstack([c,d])    #hstack 在左右方向拼接，要求行相等   #hsplit 竖切
+    f = np.hsplit(e,2)      #竖着平均成2份 ，不能平均会报错
+    f = np.hsplit(e,(1,3))  #分别从1列、3列前切,剩余保留
+    print(e)
+    print('='*40)
+    print(f)
+    c = np.random.randint(1,5,size=(4,5))
+    d = np.random.randint(1,5,size=(2,3))
+    e = np.concatenate([c,d],axis=None) #axis=None，都变成一维数组再拼接        
     print(e)
     c = np.random.randint(1,5,size=(4,5))
-    d = np.random.randint(1,5,size=(4,2))
-    e = np.hstack([c,d])    #hstack 在水平方向拼接，要求行相等 
+    d = np.random.randint(1,5,size=(4,3))
+    e = np.concatenate([c,d],axis=1)  #axis=1,左右拼接，axis=0，上下拼接
+    f = np.split(e,2,axis=1)    #按左右平均分成2份
+    g = np.array_split(e,2,axis=1)  #array_split和split一样的用法
+    h = np.split(e,(1,2),axis=1)   #分别在1列、2列前切，剩下不切
     print(e)
+    print('='*40)
+    print(f)
+    print('='*40)
+    print(g)
+    print('='*40)
+    print(h)
 vstack_array()
