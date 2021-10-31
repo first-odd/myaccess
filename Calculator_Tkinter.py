@@ -5,7 +5,7 @@ x = Tk()
 x.title("Calculator")            
 x.geometry('305x460+1200+20')
 x.resizable(0,0)                
-#self.init_window_name.attributes("-alpha",0.9)                          #虚化，值越小虚化程度越高
+#self.init_window_name.attributes("-alpha",0.9)               #虚化，值越小虚化程度越高
 vary = StringVar()
 vary.set('')
 #标签
