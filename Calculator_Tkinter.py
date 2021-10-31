@@ -30,13 +30,13 @@ def run(self):
     temp.replace('/','/')
     answer = calculator(temp)
     if temp == '520':
-        vary.set("我爱你")
+        vary.set("love you")
     else: vary.set(str(answer))
 
-def calculator(fuck):
-    s = fuck.split('+')
-    fuck = int(s[0]) + int(s[1])
-    return fuck
+def calculator(false):
+    s = false.split('+')
+    false = int(s[0]) + int(s[1])
+    return false
 
 #第一行
 ACbutton = Button(x, text="AC", bg="lightblue",width=8,height=5,command=lambda:clear('AC')).place(x=0,y=150)
