@@ -1,7 +1,7 @@
 import numpy as np    #练习使用numpy库
 import time
 
-from numpy.core.fromnumeric import size
+from numpy.typing import _128Bit
 
 def compare():
     t1 = time.time()
@@ -132,4 +132,25 @@ def vstack_array():
     print(g)
     print('='*40)
     print(h)
-vstack_array()
+
+    #数组的转置ndarray.T 和ndarray.transpose 一样的用法，都会修改原数组
+    t1 = np.random.randint(1,3,size=(2,3))
+    t2 = t1.T
+    print(t1)
+    print('='*40)
+    print(t2)
+
+    '''
+    深拷贝 view & 浅拷贝 copy
+    '''
+def file():
+    #CSV文件的保存和读
+    f1 = np.random.randint(1,100,size=(30,2))
+    np.savetxt('scroes.csv',f1,fmt='%d',delimiter=',',header='英语,数学',footer='',comments='')
+    #np.savetxt只能存储 1维2维数组a
+    read_f1,f2 = np.loadtxt('scroes.csv',dtype=int,delimiter=',',skiprows=1,unpack=True,usecols=(0,1)) 
+    # usecols=(0,1) read_f1: 第0列   f2:第1列  unpack：是否转置
+    print(f2)
+    print(read_f1)
+
+file()
