@@ -1,7 +1,6 @@
 import numpy as np    #练习使用numpy库
 import time
-
-from numpy.typing import _128Bit
+import csv
 
 def compare():
     t1 = time.time()
@@ -144,13 +143,33 @@ def vstack_array():
     深拷贝 view & 浅拷贝 copy
     '''
 def file():
-    #CSV文件的保存和读
+    #CSV文件的保存和读取
     f1 = np.random.randint(1,100,size=(30,2))
-    np.savetxt('scroes.csv',f1,fmt='%d',delimiter=',',header='英语,数学',footer='',comments='')
-    #np.savetxt只能存储 1维2维数组a
-    read_f1,f2 = np.loadtxt('scroes.csv',dtype=int,delimiter=',',skiprows=1,unpack=True,usecols=(0,1)) 
+    np.savetxt('scores.csv',f1,fmt='%d',delimiter=',',header='英语,数学',footer='',comments='')
+    #np.savetxt只能存储 1维2维数组
+    read_f1,f2 = np.loadtxt('scores.csv',dtype=int,delimiter=',',skiprows=1,unpack=True,usecols=(0,1)) 
     # usecols=(0,1) read_f1: 第0列   f2:第1列  unpack：是否转置
-    print(f2)
-    print(read_f1)
+    '''print(f2)
+    print(read_f1)'''
+    '''
+    np.save(fname,array) & np.savez(fname,array) 前者存储.npy文件，后者存储.npz压缩文件,都是非文本文件
+    可以储存多维的数组
+    读取的时候用np.load(fname.npy or fname.npz)
+    '''
+    with open('scores.csv','r',encoding='utf-8') as fp:
+        reader = csv.reader(fp) #reader是一个迭代器,传递的有点像是指针
+        next(reader) #跳过一行
+        for x in reader: #遍历reader 得到整个数据
+            print(x)
+            subject = x[0]
+            score = x[1]
+            #print({'英语':subject,'数学':score})
+    #csv.reader来读取csv文件
+
+    #csv.DictReader来读取文件 不会包含标题那一行
+    with open('scores.csv','r') as fp1:
+        reader = csv.DictReader(fp1)
+        for x in reader:
+            print(x)
 
 file()
