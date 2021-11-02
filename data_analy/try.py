@@ -2,6 +2,8 @@ import numpy as np    #练习使用numpy库
 import time
 import csv
 
+from numpy.lib.function_base import delete
+
 def compare():
     t1 = time.time()
     a = []
@@ -217,5 +219,16 @@ def spc_value():
     judge = data[np.isnan(data)] # bool索引为True
     num= data[~np.isnan(data)]   # ~ :取反运算符
     print(num)  # 此时输出为一位数组
+
+    #要删除nan所在行或者列 ：1.where 获取nan所在行/列   2. delete 删除这些行/列
+    data = np.random.randint(1,5,size=(5,5)).astype(np.float32)
+    data[[0,2],[1,3]] = np.nan
+    print(data)
+    lines = np.where(np.isnan(data))  
+    # where(if,1,0) where返回满足条件的设置为1,不满足的为0,不设置1,0就返回array行列数
+    lines1 = np.where(np.isnan(data))[0] #二维数组，第一个是其行数，取其行数
+    print(lines1)
+    data1 = np.delete(data,lines1,axis=0) #删除所在列
+    print(data1)
 
 spc_value()
