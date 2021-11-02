@@ -56,7 +56,7 @@ def arry():
     #特殊函数创建数组
     '''print(A1,A2,A3,A4,'\n',A5,'\n',A6,'\n',A7,'\n',A8,'\n',A9,'\n',A10)
     print(A1.dtype) #
-    dtype获取数据类型
+    dtype获取数据类型 用astype设定类型
     ndim获取维度
     shape获取形状（几行几列）
     size获取元素个数
@@ -157,19 +157,65 @@ def file():
     读取的时候用np.load(fname.npy or fname.npz)
     '''
     with open('scores.csv','r',encoding='utf-8') as fp:
-        reader = csv.reader(fp) #reader是一个迭代器,传递的有点像是指针
+        reader = csv.reader(fp) #reader是一个迭代器,返回数组
         next(reader) #跳过一行
         for x in reader: #遍历reader 得到整个数据
             print(x)
-            subject = x[0]
-            score = x[1]
+            #subject = x[0]
+            #score = x[1]
             #print({'英语':subject,'数学':score})
     #csv.reader来读取csv文件
 
-    #csv.DictReader来读取文件 不会包含标题那一行
+    #csv.DictReader来读取文件 不会包含标题那一行 ，而是直接把header传入字典当作key值
     with open('scores.csv','r') as fp1:
-        reader = csv.DictReader(fp1)
+        reader = csv.DictReader(fp1)  #reader直接返回一个字典
         for x in reader:
-            print(x)
+            #print(x)  
+            print({'英语':x['英语']})   #迭代输出标题是英语的value，此外 由于没有了标题，x[0]也不存在了，直接从x[1]开始
+            print({'数学':x['数学']})
+            #print(x[1])
 
-file()
+    #csv数据的写入 writer
+    header = ['name','age','height']
+    values = [
+        ('张三',18,180),
+        ('李四',13,180),
+        ('王五',13,180)
+    ]
+    with open('scores.csv','w',encoding='utf-8',newline='') as fp2:
+        abc = csv.writer(fp2)
+        abc.writerow(header)
+        abc.writerows(values)
+
+    #csv数据的写入  DictWriter 字典写入
+    headers = ['name','age','height']
+    values = [
+        {'name':'张三','age':18,'height':180},
+        {'name':'李四','age':14,'height':180},
+        {'name':'王五','age':15,'height':180}
+    ]
+    with open('scores.csv','w',encoding='utf-8') as fp3:
+        writer = csv.DictWriter(fp3,headers)
+        writer.writeheader()  # 需要调用 writeheader() 写一次表头
+        writer.writerows(values)
+
+'''
+处理数据缺失值
+'''
+# NAN 和 INF 的认识 & 处理 np.inf:正无穷大 -np.inf :负无穷大
+def spc_value():
+    #NAN ：not a number
+    data = np.random.randint(1,5,size=(3,4))
+    '''data[0,1] = np.NAN # 此时会报错data，因为nan是浮点类型，要保持数组内类型一致'''
+    data = data.astype(np.float64)
+    data[0,1] = np.nan
+    data[1,2] = np.nan
+    print(data)
+    '''可以用 np.isnan判断是否是nan值，不用用判断语句 np.nan == np.nan'''
+    bool = np.isnan(data) ;print(bool)# 返回判断是否为nan，返回bool数组
+    '''如果直接删除数组中的nan值，会直接输出一维数组'''
+    judge = data[np.isnan(data)] # bool索引为True
+    num= data[~np.isnan(data)]   # ~ :取反运算符
+    print(num)  # 此时输出为一位数组
+
+spc_value()
