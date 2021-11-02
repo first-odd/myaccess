@@ -2,7 +2,6 @@ import numpy as np    #练习使用numpy库
 import time
 import csv
 
-from numpy.lib.function_base import delete
 
 def compare():
     t1 = time.time()
@@ -150,7 +149,7 @@ def file():
     np.savetxt('scores.csv',f1,fmt='%d',delimiter=',',header='英语,数学',footer='',comments='')
     #np.savetxt只能存储 1维2维数组
     read_f1,f2 = np.loadtxt('scores.csv',dtype=int,delimiter=',',skiprows=1,unpack=True,usecols=(0,1)) 
-    # usecols=(0,1) read_f1: 第0列   f2:第1列  unpack：是否转置
+    # usecols=(0,1) read_f1: 第0列   f2:第1列  unpack：是否转置  loadtext默认读取成float浮点类型，需要使用dtype
     '''print(f2)
     print(read_f1)'''
     '''
@@ -225,10 +224,31 @@ def spc_value():
     data[[0,2],[1,3]] = np.nan
     print(data)
     lines = np.where(np.isnan(data))  
-    # where(if,1,0) where返回满足条件的设置为1,不满足的为0,不设置1,0就返回array行列数
+    # where(if,1,0) where返回满足条件if的设置为1,不满足的为0,不设置1,0就返回array行列数
     lines1 = np.where(np.isnan(data))[0] #二维数组，第一个是其行数，取其行数
     print(lines1)
-    data1 = np.delete(data,lines1,axis=0) #删除所在列
+    data1 = np.delete(data,lines1,axis=0) #删除所在行，delete用0表示行，其余用0表示列
     print(data1)
+
+    '''
+    因为没有合适数据库，创建：
+    f1 = np.random.randint(10,90,size=(10,10))
+    np.savetxt('test.csv',f1,fmt='%d',delimiter=',',comments='')
+    人为去掉了其中的值'''
+    #空数据无法用loadtext解析，先用str类型解析，根据需求值替换空值，再转换成浮点类型处理数据
+    data = np.loadtxt('test.csv',encoding='utf-8',delimiter=',',dtype=str,skiprows=1,unpack=False)
+    data[data==""] = np.nan #nan替代空值
+    data1 = data.astype(np.float32)
+    data1[np.isnan(data1)] = 0  #用0替换nan
+    print(data1)
+    data2 = data1.sum(axis=1) #对一行中的所有列求和
+    print('='*80)
+    mean_data = data.astype(np.float32)
+    for x in range(mean_data.shape[1]):
+        col = mean_data[:,x]   #取每列的值
+        non_nan_col = col[~np.isnan(col)]
+        mean = non_nan_col.mean()  # 求每列的平均值
+        col[np.isnan(col)] = mean  # 把每列的平均值赋给每列的nan
+    print(mean_data)
 
 spc_value()
