@@ -2,6 +2,8 @@ import numpy as np    #练习使用numpy库
 import time
 import csv
 
+from numpy.core.fromnumeric import size
+
 
 def compare():
     t1 = time.time()
@@ -251,4 +253,19 @@ def spc_value():
         col[np.isnan(col)] = mean  # 把每列的平均值赋给每列的nan
     print(mean_data)
 
-spc_value()
+def learn_random():
+    np.random.seed(1)  #给随机数传入seed，如果不指定，跟随时间戳
+    print(np.random.rand())
+    np.random.randn()  #生成标准正态分布的随机值 均值为0，标准差为1
+    data = [1,2,2,3,4,4,5,1,2,3,]
+    np.random.choice(data,7)          #随机选择7个属于data数组的值
+    np.random.choice(data,size=(3,4)) #随机用data的值生成3行4列
+    np.random.choice(5,size=(3,4))    #随机用0到5的数组成3行4列
+    np.random.shuffle(data)           #随机打乱data数组
+
+def learn_axis():
+    a = [2,3];b = [3,4]
+    print(a+b)  # 直接相加，意思是b在a后面进行拼接 其余运算符报错
+
+    
+learn_axis()
