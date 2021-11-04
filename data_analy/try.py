@@ -2,8 +2,6 @@ import numpy as np    #练习使用numpy库
 import time
 import csv
 
-from numpy.core.fromnumeric import size
-
 
 def compare():
     t1 = time.time()
@@ -229,7 +227,7 @@ def spc_value():
     # where(if,1,0) where返回满足条件if的设置为1,不满足的为0,不设置1,0就返回array行列数
     lines1 = np.where(np.isnan(data))[0] #二维数组，第一个是其行数，取其行数
     print(lines1)
-    data1 = np.delete(data,lines1,axis=0) #删除所在行，delete用0表示行，其余用0表示列
+    data1 = np.delete(data,lines1,axis=0) #按照第0层顺序删除所在行第lines1元素
     print(data1)
 
     '''
@@ -243,7 +241,7 @@ def spc_value():
     data1 = data.astype(np.float32)
     data1[np.isnan(data1)] = 0  #用0替换nan
     print(data1)
-    data2 = data1.sum(axis=1) #对一行中的所有列求和
+    data2 = data1.sum(axis=1) #对第1层求和
     print('='*80)
     mean_data = data.astype(np.float32)
     for x in range(mean_data.shape[1]):
@@ -268,7 +266,53 @@ def learn_axis():
     print(a+b)  # 直接相加，意思是b在a后面进行拼接 其余运算符报错，列表不能运算 
     data = np.sum(c) #没有指定axis,会把所有元素相加返回一个num 
     data = np.sum(c,0) #axis=0:按照最外层的顺序求和 方便理解代码,以后写成axis=0
-    data = np.sum(c,axis=1) #axis=1:按照第二层的顺序求和
+    data = np.sum(c,axis=1) #axis=1:按照第1层的顺序求和
     print(data)
+    max_data = np.max(c,axis=0) 
+    print(max_data)
 
-learn_axis()
+def several_functions():
+    a = np.random.uniform(-19,20,size=(1,5))
+    print(a)
+    a_b = np.abs(a) #绝对值
+    a_c = np.sqrt(a_b)#开方
+    print(a_c)
+    '''
+    np.exp 以e为底的指数
+    np.log \np.log10 \np.log2 求对数
+    np.sign 大于0为1，小于0为-1，等于0 0
+    np.ceil 向大取整
+    np.floor 向小取整
+    np.rint / np.round 四舍五入取值
+    np.modf 分离整数和小数部分
+    np.sum 求和
+    np.prod 求积
+    np.mean 求平均值
+    np.std 求标准差
+    np.var 求方差
+    np.min np.max np.argmin 索引(下标) np.argmax
+    np.media 求中位数
+    np.any  np.all 判断是否为True
+    np.sort(ndarray,axis=) 从小到大排序 ndarray.sort() 会直接改变原数组   np.argsort() 得到排序的下标值 
+    -np.sort(-ndarray) 大到小排序
+    '''
+#自己处理的删除最大最小值取平均数的代码： 
+def delete_min_max(x):
+    get_argmax = np.argmax(x) 
+    get_argmin = np.argmin(x)
+    y1 = np.delete(x,get_argmax)
+    y2 = np.delete(y1,get_argmin)
+    y = y2.mean()
+    return y
+def learn_apply_along_axis():
+    a = np.random.randint(-6,10,size=(3,6))
+    result = np.apply_along_axis(delete_min_max,axis=1,arr=a)
+    print(result)
+
+#删除最大最小值取平均数代码case：
+def compare():
+    a = np.random.randint(-6,10,size=(3,6))
+    print(a)
+    result = np.apply_along_axis(lambda x:x[np.logical_and(x!=x.max(),x!=x.min())].mean(),axis=1,arr=a)
+    print(result)
+compare()
