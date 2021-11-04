@@ -295,6 +295,10 @@ def several_functions():
     np.any  np.all 判断是否为True
     np.sort(ndarray,axis=) 从小到大排序 ndarray.sort() 会直接改变原数组   np.argsort() 得到排序的下标值 
     -np.sort(-ndarray) 大到小排序
+    np.linspace(1,20,5) 1到20平均分成5次 
+    np.unique(ndarray) 数组中有哪些值
+    np.unique(ndarray,return_counts=True) 数组中有哪些值，这些值出现了几次
+    https://docs.scipy.org/doc/numpy/reference/index.html
     '''
 #自己处理的删除最大最小值取平均数的代码： 
 def delete_min_max(x):
@@ -315,4 +319,5 @@ def compare():
     print(a)
     result = np.apply_along_axis(lambda x:x[np.logical_and(x!=x.max(),x!=x.min())].mean(),axis=1,arr=a)
     print(result)
-compare()
+    
+'''ending'''
