@@ -264,8 +264,11 @@ def learn_random():
     np.random.shuffle(data)           #随机打乱data数组
 
 def learn_axis():
-    a = [2,3];b = [3,4]
-    print(a+b)  # 直接相加，意思是b在a后面进行拼接 其余运算符报错
+    a = [2,3] ; b = [3,4]; c = [[2,3],[9,7]]  #a,b,c都是列表
+    print(a+b)  # 直接相加，意思是b在a后面进行拼接 其余运算符报错，列表不能运算 
+    data = np.sum(c) #没有指定axis,会把所有元素相加返回一个num 
+    data = np.sum(c,0) #axis=0:按照最外层的顺序求和 方便理解代码,以后写成axis=0
+    data = np.sum(c,axis=1) #axis=1:按照第二层的顺序求和
+    print(data)
 
-    
 learn_axis()
