@@ -1,4 +1,5 @@
 from numpy.core.fromnumeric import size, var
+from numpy.lib.function_base import append
 from numpy.random.mtrand import randint
 import pandas as pd
 import numpy as np
@@ -82,15 +83,34 @@ def kill_dataframe():
     f = np.arange(5)
     data_f = pd.DataFrame(f,index=['%s'%i for i in'abcde'])
     print(data_f)
+    print('='*50)
     series_f = pd.Series(f,index=['%s'%i for i in'abcde'])
     print(series_f)
-    data_f['g'] = 9 #添加列标签g，所有value是9 会直接改变data_f
-    series_f['g'] = 9 #添加行标签index  会直接改变series_f
-    print(data_f)
     print('='*50)
-    print(series_f)
+    
+    #插入数据
+    data_f['g'] = 9 #添加dataframe列，标签g，所有value是9 
+    data_f.loc['f'] = [9,6] #想要添加dataframe行索引，需要loc 
+    data_f.insert(1,'h',80) #在第1列之前添加索引‘h’，value是80 这些都会直接改变data_f 
+    series_f['g'] = 9 #添加行标签index  会直接改变series_f 
+
+    f2 = pd.Series({'h':100})
+    varied_series_f = series_f.append(f2)  #新建一个series 使用append添加到series_f，不改变series_f数据
+    print(varied_series_f)  
+
     addindex_f = data_f.reindex(['a','c','b','d','f']) #不会改变data_f
-    print('='*50)
-    print(addindex_f)
-    print(data_f)
+    row = {0:3,'h':4,'g':4}
+    varied_data_f = data_f.append(row,ignore_index=True) #新建一个字典row添加到data_f中,不会影响data_f数据,是否忽略其index，恢复默认index
+    print(varied_data_f)
+
+    #删除数据  用del drop删除列，del直接删除 drop传递删除  drop(,,axis,inplace=T/F) inplace是否对原对象删除
+    data_l = pd.DataFrame({'a':np.arange(1,5),'b':3,'c':4,'d':7},index=['%s'%i for i in 'ABCD'])
+    print(data_l)
+    del data_l['a']
+    print(data_l)
+    varied_data_l = data_l.drop('b',axis=1) #默认删除行，指定axis=1删除第二层
+    varied_data_l = data_l.drop(['c','d'],axis=1) #可以删除多列
+    print(varied_data_l)
+    print(data_l)
+
 kill_dataframe() 
