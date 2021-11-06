@@ -113,4 +113,29 @@ def kill_dataframe():
     print(varied_data_l)
     print(data_l)
 
+    #修改数据
+    #dataframe需要用到loc标签索引
+    f = np.arange(1,16)
+    data_f = pd.DataFrame(f.reshape(5,3),index=['%s'%i for i in'abcde'],columns=['A','B','C'])
+    series_f = pd.Series(f,index=['%s'%i for i in 'abcdefghijklmno'])
+    series_f[0] = 99 #series只有一列，直接更改 位置索引
+    series_f['b'] = 99 #直接索引更改
+    data_f['A'] = 999 #会修改A整列数据[,,,,]  标签索引
+    data_f.A = 888 #和上一步一样的效果    
+    data_f['a'] = 999 #列索引没有a，虽然行索引有，但是没用，会直接添加a列，值全是999
+    data_f.loc['a'] = 777 #a行全部更改为777
+    data_f.loc['a','A'] = 666 #对a行A列修改
+    print(series_f)
+    print(data_f)
+
+    #查看数据 切片索引 bool索引 series_f[0] series_f['a'] series_f[0:4]位置切片顾头不顾尾，series_f['a':'f']标签切片顾头顾尾
+    #不连续索引  series：[['a','f']] [[1,5,8,0]] dataframe 不能不连续位置索引：dataframe[[1,4,5]]是无效的 :key
+    v1 = data_f[['A','a']]
+    v2 = data_f.loc[['a','d']]
+    v3 = data_f['A']['a']  #先写列再写行 ： A列a行
+    v4 = data_f[:2] #切片输出前2行
+    print(v1)
+    print(v2)
+    print(v3)
+    print(v4)
 kill_dataframe() 
