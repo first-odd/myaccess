@@ -18,31 +18,32 @@ def get_response(html_url):
         'user-agent': 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15'
     }
     response = requests.get(url = html_url, headers = headers)
+    print(response.text)
     return response
 # response.text 获取相应体的文本数据
 
-
 def get_audio_info(html_url):
     response = get_response(url)
-    title = re.findall('<title>(.*?)</title>',response.text)[0] # 获取标题
     video_info = re.findall('<script>window\.__playinfo__=(.*?)</script>',response.text)[0]  # 获取视频信息
     json_data = json.loads(video_info)
     #print(video_info)
     #print(json_data)
     audio_url = json_data['data']['dash']['audio'][0]['baseUrl']
     #video_url = json_data['data']['dash']['video'][0]['baseUrl']
-    audio_info = [title,audio_url]   
+    audio_info = [audio_url]   
     return audio_info
     
-def save_info(title,audio_url):
+def save_info(audio_url):
     audio_content = get_response(audio_url).content
     
-    with open('/Users/jacksonandrew/Desktop/mp3' +'/'+title + '.mp3',mode='wb') as f1:
+    with open('/Users/jacksonandrew/Desktop/mp3' +'/'+'zzz'+ '.mp3',mode='wb') as f1:
         f1.write(audio_content)
     print('Done')
 
 audio_info = get_audio_info(url)
-save_info(audio_info[0],audio_info[1]) 
+save_info(audio_info[0],audio_info[1])
 
 
 '''出现问题可能会在title上面'''
+
+'''2021.11.4,已不适用'''
