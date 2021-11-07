@@ -1,9 +1,7 @@
-
+from os import name
 from numpy.core.fromnumeric import size
-from numpy.lib.shape_base import apply_along_axis, column_stack
 import pandas as pd
 import numpy as np
-from pandas.io.pytables import dropna_doc
 
 def kill_series():
     s = np.arange(1,6)
@@ -202,4 +200,47 @@ def nan_pandas():
     #填充缺失值
     vf3 = df.fillna(999)
     print(vf3)
-nan_pandas()
+
+def multi_index():
+    f = np.random.randint(1,10,6)
+    df = pd.Series(f,index=[['a','a','b','b','c','c'],[0,1,0,1,0,1]]) #层级索引
+    print(df)
+    print(df['a']) #外层索引
+    print(df[:,0]) #内层索引
+    print(df['a',0]) #双层索引
+    cf = df.swaplevel()
+    print(cf)
+
+def deal_dataframe():
+    f = pd.DataFrame([[1,np.nan,2],np.random.randint(-1,3,size=3),np.random.randn(3)])
+    f.index=['a','b','c'];f.columns=list('ABC')
+    print(f)
+    vf1 = f.sum(skipna=False) #默认axis=0求和：每列求和 不要跳过nan
+    #与numpy不同，pandas会默认skipna=True:跳过nan，假设为0.0
+    print('*'*80)
+    print(vf1)
+    vf2 = f.idxmax(axis=0) #输出最大值的标签
+    print(vf2)
+    vf3 = f.cumsum() #累计和 
+    print(vf3)
+    '''
+    count:非nan值数量
+    describe：汇总（最大值、四分位25%、中位数50%、平均数、标准差等）
+    median：算术中位数
+    mad：平均绝对离差
+    var：方差
+    std：标准差
+    skew：偏度（三阶距）
+    kurt：峰度（四阶距）
+    cumsum：累计和 cumprod：累计积
+    diff：一阶差分
+    '''
+def data_base():
+    df = pd.DataFrame([[2,3,4,5],
+                    [1,3,4,5],
+                    [2,4,1,3],
+                    [5,7,3,5]])
+    df.to_csv('es.csv') #逗号分隔开
+    f = pd.read_csv('es.csv',names=['a','b','c','d'])
+    print(f)
+data_base() 
