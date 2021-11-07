@@ -320,4 +320,5 @@ def compare():
     result = np.apply_along_axis(lambda x:x[np.logical_and(x!=x.max(),x!=x.min())].mean(),axis=1,arr=a)
     print(result)
     
+    
 '''ending'''
