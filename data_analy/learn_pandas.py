@@ -130,12 +130,16 @@ def kill_dataframe():
 
     #查看数据 切片索引 bool索引 series_f[0] series_f['a'] series_f[0:4]位置切片顾头不顾尾，series_f['a':'f']标签切片顾头顾尾
     #不连续索引  series：[['a','f']] [[1,5,8,0]] dataframe 不能不连续位置索引：dataframe[[1,4,5]]是无效的 :key
-    v1 = data_f[['A','a']]
-    v2 = data_f.loc[['a','d']]
+    v1 = data_f[['A','a']] #取这两列
+    v2 = data_f.loc[['a','d']] #取这两行
     v3 = data_f['A']['a']  #先写列再写行 ： A列a行
     v4 = data_f[:2] #切片输出前2行
+    V5 = data_f.loc['a':'d','A':'C'] #先切片行标签，后切片列标签
+
+    #loc 标签索引 iloc 位置索引
+    v1 = data_f.iloc[0:2,1:3]
     print(v1)
-    print(v2)
-    print(v3)
-    print(v4)
-kill_dataframe() 
+
+def cal_pandas():
+
+cal_pandas()
