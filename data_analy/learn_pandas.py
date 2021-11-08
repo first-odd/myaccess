@@ -187,7 +187,7 @@ def sort_pandas():
 '''
 处理缺失值
 #判断是否存在缺失值
-#丢弃缺失值 dropna()
+#丢弃缺失值 dropna()      dropna(thresh=2) #返回非nan值大于等于2个，丢弃非nan值小于2个的
 '''
 def nan_pandas():
     df = pd.DataFrame([np.random.randn(3),[1,2,np.nan],[1,2,3],[np.nan,2,np.nan]])
@@ -198,7 +198,7 @@ def nan_pandas():
     print(vf2)
     vf2 = df.dropna(axis=1)
     #填充缺失值
-    vf3 = df.fillna(999)
+    vf3 = df.fillna(999) #给nan换成999 df.fillna(method='ffill',limit=2)填充成nan上行的值,limit表示填充2行
     print(vf3)
 
 def multi_index():
