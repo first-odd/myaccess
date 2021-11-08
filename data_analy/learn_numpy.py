@@ -282,7 +282,7 @@ def several_functions():
     np.log \np.log10 \np.log2 求对数
     np.sign 大于0为1，小于0为-1，等于0 0
     np.ceil 向大取整
-    np.floor 向小取整
+    np.floor 向小取整
     np.rint / np.round 四舍五入取值
     np.modf 分离整数和小数部分
     np.sum 求和
