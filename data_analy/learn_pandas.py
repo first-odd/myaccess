@@ -203,7 +203,7 @@ def nan_pandas():
 
 def multi_index():
     f = np.random.randint(1,10,6)
-    df = pd.Series(f,index=[['a','a','b','b','c','c'],[0,1,0,1,0,1]]) #层级索引
+    df = pd.Series(f,index=[['a','a','b','b','c','c'],[0,1,0,1,0,1]]) #层级索引 set_index=[['c','d']]:外层c，内层d
     print(df)
     print(df['a']) #外层索引
     print(df[:,0]) #内层索引
