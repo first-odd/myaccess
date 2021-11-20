@@ -1,9 +1,7 @@
 import json
 import numpy as np
-from numpy.core.fromnumeric import size
-from numpy.lib.function_base import delete
 import pandas as pd
-from pandas.core import indexing
+from matplotlib import pyplot as plt
 
 def json_loads():
     #json数据
