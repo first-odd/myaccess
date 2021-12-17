@@ -4,22 +4,16 @@ import csv
 
 x = str(input())
 
-def deal():
-    print("你想让我打电话吗")
-    y = str(input())
-    if y == "是的":
-        print("好的")
-    else :print("尚未明确")
-
 def data():
     res = list(filter(None,str.split(x)))
+    print(res)
     select_col = re.findall('第(\d+?)行',res[1])
     select_row = re.findall('第(\d+?)列',res[1])
-    print(select_col)
-    print(select_row)
-
-if "电话" in x :
-    deal()
-
+    get_address = re.findall("'(.*?)'",x)[0]
+    print(get_address)
+    with open (get_address,'r') as fp :
+        reader = csv.reader(fp)
+        for a in reader :
+            print(a)
 if ".csv' 删除" in x :
     data()
