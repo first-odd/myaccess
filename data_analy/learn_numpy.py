@@ -157,11 +157,13 @@ def file():
     可以储存多维的数组
     读取的时候用np.load(fname.npy or fname.npz)
     '''
-    with open('scores.csv','r',encoding='utf-8') as fp:
+    with open(r'scores.csv','r',encoding='utf-8') as fp:
         reader = csv.reader(fp) #reader是一个迭代器,返回数组
         next(reader) #跳过一行
+        print('#'*100)
         for x in reader: #遍历reader 得到整个数据
             print(x)
+        print('*'*100)
             #subject = x[0]
             #score = x[1]
             #print({'英语':subject,'数学':score})
@@ -176,7 +178,7 @@ def file():
             print({'数学':x['数学']})
             #print(x[1])
 
-    #csv数据的写入 writer
+'''    #csv数据的写入 writer
     header = ['name','age','height']
     values = [
         ('张三',18,180),
@@ -186,9 +188,9 @@ def file():
     with open('scores.csv','w',encoding='utf-8',newline='') as fp2:
         abc = csv.writer(fp2)
         abc.writerow(header)
-        abc.writerows(values)
+        abc.writerows(values)'''
 
-    #csv数据的写入  DictWriter 字典写入
+'''    #csv数据的写入  DictWriter 字典写入
     headers = ['name','age','height']
     values = [
         {'name':'张三','age':18,'height':180},
@@ -198,7 +200,7 @@ def file():
     with open('scores.csv','w',encoding='utf-8') as fp3:
         writer = csv.DictWriter(fp3,headers)
         writer.writeheader()  # 需要调用 writeheader() 写一次表头
-        writer.writerows(values)
+        writer.writerows(values)'''
 
 '''
 处理数据缺失值
@@ -320,5 +322,5 @@ def compare():
     result = np.apply_along_axis(lambda x:x[np.logical_and(x!=x.max(),x!=x.min())].mean(),axis=1,arr=a)
     print(result)
     
-    
+file()
 '''ending'''
